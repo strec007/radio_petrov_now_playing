@@ -3,7 +3,7 @@
 
 '''
 Radio Petrov Now Playing
-Copyright © 2018 Petr Cizmar
+Copyright © 2018-2020 Petr Cizmar
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the "Software"),
@@ -29,10 +29,12 @@ import random
 import os
 import sys
 import time
-import xml.etree.ElementTree as ET
 import getopt
+import json
 
-prxs = {'http': 'http://dewwwp1:74'}
+# Getting http proxy from environment
+proxy_string = os.environ.get("http_proxy")
+prxs = {'https': proxy_string} if proxy_string else {}
 
 def usage():
     print("Radio Petrov Now Playing")
@@ -42,20 +44,19 @@ def usage():
 
 def get_petrov_palying_now():
     """gets the info from the web"""
-    url = "http://www.radiopetrov.com/stream?type=klasik&ping=1&rnd={0}".format(random.random())
+    time_string = time.strftime('%Y%m%d%H%M%S')
+    url = "https://data.radia.cz/data/pravehraje/new-272-currentnext.json?time={}".format(time_string)
     r = requests.get(url, proxies = prxs)
-    xml = bytes(r.text,'iso-8859-1').decode('utf-8')
-    tree = ET.fromstring(xml)
-    attr = tree.find('song').attrib
-    return attr['artist'], attr['song']
+    data = json.loads(r.text)['current']
+    return data['interpret'], data['song']
 
 def print_it():
     a,s = get_petrov_palying_now()
     print("{0}: {1}".format(a,s))
 
 def watch_it():
-    prev = ""
-    while (1):
+    prev = None
+    while (True):
         a, s = get_petrov_palying_now()
         if prev != s:
             prev = s

@@ -1,29 +1,3 @@
-# Radio Petrov Now Playing
-
-is a very simple python3 script which downloads the now-playing information from
-the website of the [Rádio Petrov](http://www.radiopetrov.com) (Brno's local
-radio station).
-
-## Author
-
-Petr Cizmar (1/2018)
-
-## Usage
-
-`radio_petrov_now_playing [-h/--help] [-w/--watch]`
-
-### Parameters
-
-- `-h | --help` prints help information
-- `-w | --watch` checks every minute and prints the current song if changed from last time
-
-### Note
-
-User can tweak the source if proxy connection is required. 
-
-## Licence
-
-```
 Radio Petrov Now Playing
 Copyright © 2018-2020 Petr Cizmar
 
@@ -44,5 +18,3 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
 DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-```
